@@ -1,0 +1,106 @@
+<html>
+<head>
+<title> Stay Alive!!!!! </title>
+<script src="https://simplycodingcourses.com/files/simplyjs/simply.js"></script>
+<script>
+
+function start(){ 
+sjs.open("target",800,500); 
+  
+var background = new sjs.Image("Images/background.webp"); 
+background.setSize(sjs.getWidth(),sjs.getHeight());
+
+
+// Score
+
+// Player
+var player= new sjs.Image("Images/player.png");
+player.type = "player";
+player.setSize(100,100);
+
+sjs.keyDown(RIGHT_KEY, function(){ 
+player.setImage("Images/player.png");
+player.friction = .1;
+player.accel = .5
+player.pushRight();
+});
+
+sjs.keyDown(LEFT_KEY, function(){ 
+player.setImage("Images/player.png");
+player.friction = .1;
+player.accel = .5
+player.pushLeft();
+});
+
+sjs.keyDown(UP_KEY, function(){ 
+	player.friction = .1;
+player.accel = .5
+player.pushUp();
+});
+
+sjs.keyDown(DOWN_KEY, function(){ 
+	player.friction = .1;
+player.accel = .5
+player.pushDown();
+}); 
+
+
+
+// Score
+var score = 0;
+var points = 0; 
+var points_txt = new sjs.Text("Seconds Survived: 0"); 
+setInterval(function(){   
+  points++; 
+  points_txt.setText("Seconds Survived: "+points); 
+  if (points>30) 
+	{ window.location = "win.html"; }
+}, 1000);
+
+
+// Enemies   
+setInterval(function(){     
+var speed = Math.floor(1 + Math.random()*10);     
+if(Math.random() > 0.5){     
+var enemy = new sjs.Image("Images/Virus.png");     
+enemy.type = "enemy";   
+enemy.setSize(100,50);   
+enemy.noBounds = true;   
+enemy.friction = 0;         
+enemy.pushRight(speed);     
+enemy.scaleSize(.5 + Math.random() * 1.2);  
+enemy.moveTo(-enemy.getWidth(), Math.random()*
+	(enemy.getClamp().y));   
+} else {
+var enemy = new sjs.Image("Images/Virus.png");
+enemy.type = "enemy";
+enemy.setSize(100,50);
+enemy.noBounds = true;
+enemy.friction = 0;	
+enemy.pushLeft(speed);
+enemy.scaleSize(.5 + Math.random() * 1.2);
+enemy.moveTo(sjs.getWidth(), Math.random()*(enemy.getClamp().y));
+}
+},750);   
+    
+sjs.left_screen.offset(-500);
+sjs.right_screen.offset(500);
+sjs.onHit("enemy",["right_screen","left_screen"], function(x,y){
+x.destroy(); 
+}); 
+
+sjs.onHit("player", "enemy", function(x,y){ window.location="gameover.html"; });
+
+
+} //end start
+
+
+
+</script>
+</head>
+<body onload="start()">
+<h1> Stay alive!</h1>
+
+<div id="target" style="margin:auto;background:grey;"></div>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<html>
+<head>
+<title> Can you survive? </title>
+<script src="https://simplycodingcourses.com/files/simplyjs/simply.js"></script>
+<script>
+function start(){
+sjs.open();
+var menu_text = new sjs.Text("Of course, you had to know why the green blobs were so hostile. You really want to know why they are so mean. You think of two choices.",20,"blue"); 
+
+var btn1 = new sjs.Button("Spy on your own.", function(){
+window.location = "choice1.html";
+});
+btn1.center();
+var btn2 = new sjs.Button("Have your elders go confront the strange village.", function(){
+window.location = "choice2.html";
+});
+btn2.center().offset(0, -40);
+var info_text = new sjs.Text("Created By Trace Gregory",20,"black");
+
+info_text.bottom().centerH();
+
+}
+</script>
+</head>
+<body onload="start()">
+<h1> Personal Game </h1>
+
+<div id="target" style="margin:auto;background:grey;"></div>
+</body>
+</html>
